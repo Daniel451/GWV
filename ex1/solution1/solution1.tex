@@ -13,7 +13,7 @@
 \title{\textbf{\huge Grundlagen der Wissensverarbeitung
 \\\Large Blatt 1}}
 \author{Daniel Speck, Lena Niermeyer, Florian Klückman}
-\date{15.10.2015}
+\date{16.10.2015}
 
 \setlength{\topmargin}{-1.0cm}
 \setlength{\textheight}{650pt}
@@ -32,15 +32,37 @@
 	
 		\subsection*{1. Navigating through a labyrinth}
 		
-			\textbf{Task \& result:} An agent has to find a way through a labyrinth. The found solution should be as efficient as possible.
+			\textbf{Task:} An agent has to find a way through a labyrinth.
+			\\
+			\textbf{Result:} The found solution should be as efficient as possible, so the found path through the labyrinth has to be as short as possible (either in terms of the time it takes to finish or the distance of the path).
+			\\
+			\textbf{Examples:} Pacman\footnote{\url{https://de.wikipedia.org/wiki/Pac-Man}}, a classic computer game, could be considered as a sufficient example, because Pacman has to find a path through a labyrinth, avoid the ghosts and get all coins as fast as possible (to achieve a high score). Therefore his paths have to be as efficient as possible.
+			\\
+			\textbf{Computational solutions:} A computational solution would be fine as long as finding the shortest path is the only objective. A computational solution would be hard to implement or fail, if many secondary objectives (such as a high score, avoid ghosts, \dots) come into play. Additionally a classic computational solution has a certain space and time complexity, so it would always fail if there is not enough memory or time for computing the whole algorithm. Potentially an artificial intelligence could estimate if there are enough resources (time/memory) for finding an optimal solution or if a less optimal solution has to be found because the decision (e.g. where to go? stop now? go now?) has to be made right now.
+
 		
 		\subsection*{2. Calibration of sensor data}
 		
-			\textbf{Task \& result:} Real world data recorded from sensors often contains noise and other distortions of input data. A supervised agent could be trained to find patterns in those distortions and deliver more distortion-free data.
+			\textbf{Task:} Real world data recorded from sensors often contains noise and other distortions of input data. A supervised agent could be trained to find patterns in those distortions and deliver more distortion-free data.
+			\\
+			\textbf{Result:} Ideally the agent learns if any calibration issues exist, if a typical noise on data can be found and so on in order to deliver input data which is as distortion-free as possible.
+			\\
+			\textbf{Examples:} A robot with a camera to perceive its environment could have a sensor reporting the angle of a rotatable substructure for aligning the camera. If the sensor is not calibrated correctly it may always report 5 degrees too much or too less. Furthermore the glass of the camera protecting its image sensor could be polluted so that the view of the camera gets blurry or contains contortions. Those abnormalities could be learned by an artificial intelligence for trying to compensate the error. A supervised artificial neural network would be one possible solution.
+			\\
+			\textbf{Computational solutions:} A fix, computational solution could most likely not be used in this scenario, because the hassle to implement such a solution by hand would result in a high cost (time, money, \dots). An intelligent agent which is capable of re-adapting if the measurement error for example of the sensor of the rotatable substructure changes is an appropriate solution.
 		
 		\subsection*{3. Image classification}
 		
-			\textbf{Task \& result:} Much information is meaningless if it is not accessible easily for humans or computers. Large databases of images (e.g. Google images) have to be categorized correctly to build up a useful database. An agent could be used to classify this data automatically.
+			\textbf{Task:} Much information is meaningless if it is not accessible easily for humans or computers. Large databases of images (e.g. Google images) have to be categorized correctly to build up a useful database. An agent could be used to classify this data automatically. 
+			\\
+			\textbf{Result:} If the image of an object, e.g. \enquote{a dog}, is searched, the agent should optimally only show images of dogs. If the search is being refined, e.g. \enquote{a white dog}, the agent has to be able to connect those information with each other, interpret the search query and narrow down the results so that only white dogs are shown.
+			\\
+			\textbf{Examples:} Google images, Bing images, Yahoo Image Search, \dots
+			\\
+			\textbf{Computational solutions:} It is nearly impossible to use classic computational solutions for building up clusters of images or even narrowing down search results dependent on visual information. The immense number of possible shapes, lighting, angles, \dots renders this task very challenging. A computational solution would be far to static to adapt to real world images.
+			
+	
+	
 	
 	\section*{Aufgabe 1.2 (AI Terminology)}
 
@@ -66,45 +88,45 @@
 		%Quelle: \url{http://www.nickols.us/Knowledge_in_KM.htm}
 		
 		
-		\noindent \textit{fully observable} versus \textit{partially observable}:
+		\noindent \textit{Fully observable} versus \textit{partially observable}:
 		\\ 
 		%In einer voll beobachtbaren Umgebung ist der Agent jederzeit ausreichend informiert, um eine optimale Entscheidung zu treffen. In anderen Umgebungen müssen Agenten auf Erfahrungen oder Erinnerungen zurückgreifen, um die beste Entscheidung zu treffen.
 		%Das Damespiel ist zB voll beobachtbar, während Poker nur teilweise beobachtbar ist. Möchte man für diese Spiele einen Algorithmus schreiben, um Entscheidungen nicht intuitiv, sondern logisch zu treffen, so ist beim Damespiel für jede Stellung auf dem Brett (die ja jederzeit sichtbar ist), ein Gegenschlag durch den Algorithmus eindeutig definierbar. Beim Poker ist unklar, welche Karten andere Spieler auf der Hand haben und somit kann aufgrund dieser fehlenden Information keine optimale Lösung gefunden werden.
-		In a fully observable environment the agent is always sufficiently informed to make an optimal decision. In other environments agents must rely on experience or memories in order to make the best decision.
-		Checkers eg is fully observable, while poker is only partially observable. If you want to write an algorithm for these Games to make no intuitive decisions, but logical, then in checkers for each position on the board (which are visible at all times), a reaction by the algorithm is clearly defined. In poker, the hand/ cards of other players are unclear and because of this lack of information no optimal solution can be found.
-Reason, why the difference might be important when designing AI applications for the given environment:
-If there are unobserved states, it is much harder to learn a good policy. Unobserved states are a lot more difficult to learn a good policy.
+		In a fully observable environment the agent is always informed sufficiently to make an optimal decision. In other environments agents must rely on experience or memories in order to make the best decision.
+		Checkers e.g. is fully observable, while poker is only partially observable. If you want to design an algorithm for these Games for avoiding intuitive decisions and make logical ones, then in checkers for each position on the board (which are visible at all times) a reaction by the algorithm is / can be clearly defined. In poker the hand/cards of other players are unknown and because of this lack of information no optimal solution can be found.
+		Reason, why the difference might be important when designing AI applications for the given environment:
+		If there are unobserved states, it is much harder to learn a good policy. Unobserved states are a lot more difficult to learn a good policy.
+		\\
 %Quelle: http://metaoptimize.com/qa/questions/9924/rl-difference-between-partially-observable-and-a-stochastic-environment
-		\noindent \textit{discrete} versus \textit{continuous}:
-		\\ 
+		
 		 
 		%Diskret meint, dass verschiedene Werte verschieden Bedeutungen haben. Beim Schach, wo man ein 8x8 Array hat, das verschiedene Werte represäntiert: 1=Turm, 2=Pferd, 3=Läufer usw. 2 ist dann etwas anderes als 1 und bedeutet nicht 2xTurm.
 	%	Kontinuierlich meint, dass die Werte zwar die gleiche Bedeutung, aber verschiedene Höhen haben. ZB Pixelwerte: 0 bedeutet “kein Licht” (schwarz) und 255 bedeutet “maximal viel Licht” (weiss). 
 	%	Problem bei diskreter Umgebung ist, dass man stark abstrahieren muss für diesen Fall, den die meisten Dinge in der Natur sind kontinuierlich (Temperatur, Gesundheit usw.) und nicht so einfach einzuteilen. Andererseits erlaubt diese Absatraktion eine Handhabbarkeit mit den Dingen (Lichtschalter: An, Aus ist einfach. Dimmbar wäre dann kontinuierlich und erfordert weitere Entscheidungen, was alles komplexer macht).
-		Discrete means that different values have different meanings. In chess, where you have an 8x8 array representing different values: 1 = pawn 2 = rook , 3 = bishop.... 2 then is something else than 1 and does not mean 2xpawns.
-Continuous means that the values have the same meaning, but different amounts. For example, pixel values: 0 means "no light" (black) and 255 means "maximum amount of light" (white).
-
-Problem in discrete environment is that you have to think abstract, but most things in nature are continuous (temperature , health, etc.) and not so simple. On the other hand, abstraction allows manageability of things (light switch : On, Off is simply, Dimmable would be continuously and requires further decisions, which makes everything more complex).
-
-Reason, why the difference might be important when designing AI applications for the given environment:
-The difference is important as many statistical and data mining algorithms can handle one type but not the other. For example in regular regression, the Y must be continuous. In logistic regression the Y is discrete.
-%http://stats.stackexchange.com/questions/206/what-is-the-difference-between-discrete-data-and-continuous-data
+		\noindent \textit{Discrete} versus \textit{continuous}:
+		\\ 
+		Discrete means that different values have different meanings. In chess, where you have an 8x8 array representing different values: 1 = pawn, 2 = rook, 3 = bishop \dots. 2 then is something else than 1 and does not mean 2x pawns.
+		Continuous means that the values have the same meaning, but different amounts. For example, pixel values (RGB): 0 means "no light" (black) and 255 means "maximum amount of light" (white).
+		The problem in a discrete environment is that you have to think abstract, but most things in nature are continuous (temperature, health, etc.) and not as simple. On the other hand, abstraction allows manageability of things (light switch: on, off is simple, dimmable would be a continuous solution and requires further decisions making everything more complex).
+		Reason, why the difference might be important when designing AI applications for the given environment:
+		The difference is important as many statistical and data mining algorithms can handle one type but not the other. For example in regular regression, the Y must be continuous. In logistic regression the Y is discrete.
+		\\
+		%http://stats.stackexchange.com/questions/206/what-is-the-difference-between-discrete-data-and-continuous-data
 
 
 		
-		\noindent \textit{deterministic} versus \textit{stochastic}:
-		\\ 
+		
 		%Deterministisch bedeutet, dass beim selben Dateninput immer die gleichen Ergebnisse herauskommen, da von mathematischen Gesetzen ausgegangen wird.
 		%Bei der stochastischen Umgebungen wird mit Wahrscheinlichkeitswerten gerechnet, so dass die gleiche Eingabe zu einem anderen Ergebnis führen kann.
 		%Kreuzworträtsel sind zB deterministisch, während medizinische Diagnosen stochastisch sind. Problem bei determ. Umfeld: unflexibel und es kann mit Fehlern weiter gerechnet werden, weil das System so starr ist. Problem bei stoch. Umfeld: uneindeutig. Für Planung und Folgeschritte sind präzise Werte / Informationen hilfreich, doch durch die Wahrscheinlichkeitsverteilung kommen stets mehrere Daten zur Weiterverarbeitung in Frage.
-		
-		Deterministic means that the same input results in the same output, through mathematical laws are assumed.
-In stochastic environments probability values are part of the calculation, so that the same input can result in different outputs.
-Crosswords e.g. are deterministic, while medical diagnoses are stochastically. Problem with determ. Environment: inflexible and further calculation with wrong results, because the system is so rigid. Problem at Stoch. Environment: ambiguous. For planning and follow-up steps precise values/information is helpful, but through probability values much data can not be used for further processing.
-
-Reason, why the difference might be important when designing AI applications for the given environment:
-Modeling and simulating a stochastic process is more difficult and in complex systems you may have to neglect some variables to be able to use the model.
-%Quelle: http://www.edaboard.com/thread26658.html
+		\noindent \textit{Deterministic} versus \textit{stochastic}:
+		\\
+		Deterministic describes that the same input results in the same output every time. The outcome is defined by mathematical laws.
+		In stochastic environments probability values are part of the calculation, so that the same input can result in different outputs.
+		Crosswords e.g. are deterministic, while medical diagnoses are stochastically. Problem with determ. Environment: inflexible and further calculation with wrong results, because the system is so rigid. Problem at Stoch. Environment: ambiguous. For planning and follow-up steps precise values/information is helpful, but through probability values much data can not be used for further processing.
+		Reason, why the difference might be important when designing AI applications for the given environment:
+		Modeling and simulating a stochastic process is more difficult and in complex systems you may have to neglect some variables to be able to use the model.
+		%Quelle: http://www.edaboard.com/thread26658.html
 
 
 
