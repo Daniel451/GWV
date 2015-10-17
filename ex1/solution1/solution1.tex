@@ -68,18 +68,47 @@
 		
 		\noindent \textit{fully observable} versus \textit{partially observable}:
 		\\ 
-		In einer voll beobachtbaren Umgebung ist der Agent jederzeit ausreichend informiert, um eine optimale Entscheidung zu treffen. In anderen Umgebungen müssen Agenten auf Erfahrungen oder Erinnerungen zurückgreifen, um die beste Entscheidung zu treffen.
-		Das Damespiel ist zB voll beobachtbar, während Poker nur teilweise beobachtbar ist. Möchte man für diese Spiele einen Algorithmus schreiben, um Entscheidungen nicht intuitiv, sondern logisch zu treffen, so ist beim Damespiel für jede Stellung auf dem Brett (die ja jederzeit sichtbar ist), ein Gegenschlag durch den Algorithmus eindeutig definierbar. Beim Poker ist unklar, welche Karten andere Spieler auf der Hand haben und somit kann aufgrund dieser fehlenden Information keine optimale Lösung gefunden werden.
+		%In einer voll beobachtbaren Umgebung ist der Agent jederzeit ausreichend informiert, um eine optimale Entscheidung zu treffen. In anderen Umgebungen müssen Agenten auf Erfahrungen oder Erinnerungen zurückgreifen, um die beste Entscheidung zu treffen.
+		%Das Damespiel ist zB voll beobachtbar, während Poker nur teilweise beobachtbar ist. Möchte man für diese Spiele einen Algorithmus schreiben, um Entscheidungen nicht intuitiv, sondern logisch zu treffen, so ist beim Damespiel für jede Stellung auf dem Brett (die ja jederzeit sichtbar ist), ein Gegenschlag durch den Algorithmus eindeutig definierbar. Beim Poker ist unklar, welche Karten andere Spieler auf der Hand haben und somit kann aufgrund dieser fehlenden Information keine optimale Lösung gefunden werden.
+		In a fully observable environment the agent is always sufficiently informed to make an optimal decision. In other environments agents must rely on experience or memories in order to make the best decision.
+		Checkers eg is fully observable, while poker is only partially observable. If you want to write an algorithm for these Games to make no intuitive decisions, but logical, then in checkers for each position on the board (which are visible at all times), a reaction by the algorithm is clearly defined. In poker, the hand/ cards of other players are unclear and because of this lack of information no optimal solution can be found.
+Reason, why the difference might be important when designing AI applications for the given environment:
+If there are unobserved states, it is much harder to learn a good policy. Unobserved states are a lot more difficult to learn a good policy.
+%Quelle: http://metaoptimize.com/qa/questions/9924/rl-difference-between-partially-observable-and-a-stochastic-environment
+		\noindent \textit{discrete} versus \textit{continuous}:
+		\\ 
+		 
+		%Diskret meint, dass verschiedene Werte verschieden Bedeutungen haben. Beim Schach, wo man ein 8x8 Array hat, das verschiedene Werte represäntiert: 1=Turm, 2=Pferd, 3=Läufer usw. 2 ist dann etwas anderes als 1 und bedeutet nicht 2xTurm.
+	%	Kontinuierlich meint, dass die Werte zwar die gleiche Bedeutung, aber verschiedene Höhen haben. ZB Pixelwerte: 0 bedeutet “kein Licht” (schwarz) und 255 bedeutet “maximal viel Licht” (weiss). 
+	%	Problem bei diskreter Umgebung ist, dass man stark abstrahieren muss für diesen Fall, den die meisten Dinge in der Natur sind kontinuierlich (Temperatur, Gesundheit usw.) und nicht so einfach einzuteilen. Andererseits erlaubt diese Absatraktion eine Handhabbarkeit mit den Dingen (Lichtschalter: An, Aus ist einfach. Dimmbar wäre dann kontinuierlich und erfordert weitere Entscheidungen, was alles komplexer macht).
+		Discrete means that different values have different meanings. In chess, where you have an 8x8 array representing different values: 1 = pawn 2 = rook , 3 = bishop.... 2 then is something else than 1 and does not mean 2xpawns.
+Continuous means that the values have the same meaning, but different amounts. For example, pixel values: 0 means "no light" (black) and 255 means "maximum amount of light" (white).
+
+Problem in discrete environment is that you have to think abstract, but most things in nature are continuous (temperature , health, etc.) and not so simple. On the other hand, abstraction allows manageability of things (light switch : On, Off is simply, Dimmable would be continuously and requires further decisions, which makes everything more complex).
+
+Reason, why the difference might be important when designing AI applications for the given environment:
+The difference is important as many statistical and data mining algorithms can handle one type but not the other. For example in regular regression, the Y must be continuous. In logistic regression the Y is discrete.
+%http://stats.stackexchange.com/questions/206/what-is-the-difference-between-discrete-data-and-continuous-data
+
+
 		
-		discrete versus continuous. 
-		Diskret meint, dass verschiedene Werte verschieden Bedeutungen haben. Beim Schach, wo man ein 8x8 Array hat, das verschiedene Werte represäntiert: 1=Turm, 2=Pferd, 3=Läufer usw. 2 ist dann etwas anderes als 1 und bedeutet nicht 2xTurm.
-		Kontinuierlich meint, dass die Werte zwar die gleiche Bedeutung, aber verschiedene Höhen haben. ZB Pixelwerte: 0 bedeutet “kein Licht” (schwarz) und 255 bedeutet “maximal viel Licht” (weiss). 
-		Problem bei diskreter Umgebung ist, dass man stark abstrahieren muss für diesen Fall, den die meisten Dinge in der Natur sind kontinuierlich (Temperatur, Gesundheit usw.) und nicht so einfach einzuteilen. Andererseits erlaubt diese Absatraktion eine Handhabbarkeit mit den Dingen (Lichtschalter: An, Aus ist einfach. Dimmbar wäre dann kontinuierlich und erfordert weitere Entscheidungen, was alles komplexer macht).
+		\noindent \textit{deterministic} versus \textit{stochastic}:
+		\\ 
+		%Deterministisch bedeutet, dass beim selben Dateninput immer die gleichen Ergebnisse herauskommen, da von mathematischen Gesetzen ausgegangen wird.
+		%Bei der stochastischen Umgebungen wird mit Wahrscheinlichkeitswerten gerechnet, so dass die gleiche Eingabe zu einem anderen Ergebnis führen kann.
+		%Kreuzworträtsel sind zB deterministisch, während medizinische Diagnosen stochastisch sind. Problem bei determ. Umfeld: unflexibel und es kann mit Fehlern weiter gerechnet werden, weil das System so starr ist. Problem bei stoch. Umfeld: uneindeutig. Für Planung und Folgeschritte sind präzise Werte / Informationen hilfreich, doch durch die Wahrscheinlichkeitsverteilung kommen stets mehrere Daten zur Weiterverarbeitung in Frage.
 		
-		deterministic versus stochastic. 
-		Deterministisch bedeutet, dass beim selben Dateninput immer die gleichen Ergebnisse herauskommen, da von mathematischen Gesetzen ausgegangen wird.
-		Bei der stochastischen Umgebungen wird mit Wahrscheinlichkeitswerten gerechnet, so dass die gleiche Eingabe zu einem anderen Ergebnis führen kann.
-		Kreuzworträtsel sind zB deterministisch, während medizinische Diagnosen stochastisch sind. Problem bei determ. Umfeld: unflexibel und es kann mit Fehlern weiter gerechnet werden, weil das System so starr ist. Problem bei stoch. Umfeld: uneindeutig. Für Planung und Folgeschritte sind präzise Werte / Informationen hilfreich, doch durch die Wahrscheinlichkeitsverteilung kommen stets mehrere Daten zur Weiterverarbeitung in Frage.
+		Deterministic means that the same input results in the same output, through mathematical laws are assumed.
+In stochastic environments probability values are part of the calculation, so that the same input can result in different outputs.
+Crosswords e.g. are deterministic, while medical diagnoses are stochastically. Problem with determ. Environment: inflexible and further calculation with wrong results, because the system is so rigid. Problem at Stoch. Environment: ambiguous. For planning and follow-up steps precise values/information is helpful, but through probability values much data can not be used for further processing.
+
+Reason, why the difference might be important when designing AI applications for the given environment:
+Modeling and simulating a stochastic process is more difficult and in complex systems you may have to neglect some variables to be able to use the model.
+%Quelle: http://www.edaboard.com/thread26658.html
+
+
+
+		
 		
 		% Quellen:
 		% - https://www.udacity.com/wiki/cs271/unit1-notes
