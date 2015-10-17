@@ -5,6 +5,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{polynom} % Polynomdivision
+\usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+\usepackage{csquotes} % Quotes
 
 
 
@@ -42,35 +44,46 @@
 	
 	\section*{Aufgabe 1.2 (AI Terminology)}
 
-\textbf Information ist ein Teilmenge vom Wissen, die durch Teilen vervielfältigt wird. Maschinen und Computerprogramme können sowohl Sender als auch Empfänger von Informationen sein. Das Internet enthält Informationen in Form von Nachrichten und Bibliotheken, ein Smartphone enthält technische Details zu sich und zum Datenverbrauch. Explizites Wissen wird als Information gespeichert.
+		\textit{Information} is a subset of \textit{knowledge} created as well as spread via sharing. Machines and computer programs may be senders or receivers of information. The world wide web contains information in the form of messages, texts, encyclopedias, blogs, libraries and so forth. Not all information is \textit{explicit knowledge}, but \textit{explicit knowledge} consists of \enquote{saved}, well formulated information. 
+		\\
 
-Implizites Wissen ist unbewusstes Wissen, das man nicht artikulieren kann, weil es im Können eines Individuums steckt und somit nicht kommuniziert werden kann. Fahrradfahren oder die Sozialisierung in den Unternehmensalltag sind Beispiele.
-Unternehmen liegt impl. Wissen in Form von Betriebsdatenbanken und Data Warehouses vor. Hier werden impl. Daten, wie zB Häufigkeit von Zugriffen gespeichert, aber keine weiteren Informationen aus diesen Daten gezogen. Würde man das tun und die Daten nutzbar machen, wären es explizite Daten.
-
-Explizites Wissen ist artikuliertes und in Form von Texten, Diagrammen usw. Festgehaltenes Wissen. Beispiele hierfür sind Produkt Spezifikationen, wissenschaftliche Formeln oder Computer Programme oder Regeln, auf die man sich geeinigt hat (Prüfungsordnungen, Rechtschreibung).
-Ein Mathebuch enthält Formeln, also eindeutig kommuniziertes Wissen.
-Auf dem Laptop ist explizites Wissen in Form von Hilfeseiten (Linux Man Pages) gespeichert und über das Internet greift man auf explizites Wissen, gespeichert auf Servern, zu, zB den Texten auf Wikipedia.
-
-Quelle: http://www.nickols.us/Knowledge_in_KM.htm
-
-
-
-fully versus partially observable. 
-In einer voll beobachtbaren Umgebung ist der Agent jederzeit ausreichend informiert, um eine optimale Entscheidung zu treffen. In anderen Umgebungen müssen Agenten auf Erfahrungen oder Erinnerungen zurückgreifen, um die beste Entscheidung zu treffen.
-Das Damespiel ist zB voll beobachtbar, während Poker nur teilweise beobachtbar ist. Möchte man für diese Spiele einen Algorithmus schreiben, um Entscheidungen nicht intuitiv, sondern logisch zu treffen, so ist beim Damespiel für jede Stellung auf dem Brett (die ja jederzeit sichtbar ist), ein Gegenschlag durch den Algorithmus eindeutig definierbar. Beim Poker ist unklar, welche Karten andere Spieler auf der Hand haben und somit kann aufgrund dieser fehlenden Information keine optimale Lösung gefunden werden.
-
-discrete versus continuous. 
-Diskret meint, dass verschiedene Werte verschieden Bedeutungen haben. Beim Schach, wo man ein 8x8 Array hat, das verschiedene Werte represäntiert: 1=Turm, 2=Pferd, 3=Läufer usw. 2 ist dann etwas anderes als 1 und bedeutet nicht 2xTurm.
-Kontinuierlich meint, dass die Werte zwar die gleiche Bedeutung, aber verschiedene Höhen haben. ZB Pixelwerte: 0 bedeutet “kein Licht” (schwarz) und 255 bedeutet “maximal viel Licht” (weiss). 
-Problem bei diskreter Umgebung ist, dass man stark abstrahieren muss für diesen Fall, den die meisten Dinge in der Natur sind kontinuierlich (Temperatur, Gesundheit usw.) und nicht so einfach einzuteilen. Andererseits erlaubt diese Absatraktion eine Handhabbarkeit mit den Dingen (Lichtschalter: An, Aus ist einfach. Dimmbar wäre dann kontinuierlich und erfordert weitere Entscheidungen, was alles komplexer macht).
-
-deterministic versus stochastic. 
-Deterministisch bedeutet, dass beim selben Dateninput immer die gleichen Ergebnisse herauskommen, da von mathematischen Gesetzen ausgegangen wird.
-Bei der stochastischen Umgebungen wird mit Wahrscheinlichkeitswerten gerechnet, so dass die gleiche Eingabe zu einem anderen Ergebnis führen kann.
-Kreuzworträtsel sind zB deterministisch, während medizinische Diagnosen stochastisch sind. Problem bei determ. Umfeld: unflexibel und es kann mit Fehlern weiter gerechnet werden, weil das System so starr ist. Problem bei stoch. Umfeld: uneindeutig. Für Planung und Folgeschritte sind präzise Werte / Informationen hilfreich, doch durch die Wahrscheinlichkeitsverteilung kommen stets mehrere Daten zur Weiterverarbeitung in Frage.
-
-Quellen: https://www.udacity.com/wiki/cs271/unit1-notes
-http://www.aiqus.com/forum/questions/2539/discrete-vs-continuous
+		%Information ist ein Teilmenge vom Wissen, die durch Teilen vervielfältigt wird. Maschinen und Computerprogramme können sowohl Sender als auch Empfänger von Informationen sein. Das Internet enthält Informationen in Form von Nachrichten und Bibliotheken, ein Smartphone enthält technische Details zu sich und zum Datenverbrauch. Explizites Wissen wird als Information gespeichert.
+		
+		\noindent \textit{Implicit knowledge} is unconsciously, it can not be or has not been articulated. An individual \enquote{carries} \textit{implicit knowledge} with its skills and abilities. It is (logically) deducible from observable information or behavior and it implies itself with the existence of such information, behavior, skills, abilities, \dots
+		\\
+		A popular German saying is \enquote{zwischen den Zeilen lesen} which means \enquote{read between the lines}, this saying indicates the existence of hidden knowledge, \textit{implicit knowledge}, which has to be discovered by observation and/or deductions.
+		\\
+		Examples for skills and abilities would be bicycling, swimming or socialization in communities. \textit{Implicit knowledge} can also be more technical, e.g. in the form of data in data warehouses or databases of companies. \enquote{Here} the \textit{implicit knowledge} would not be the data itself (which would be considered \textit{explicit knowledge}) but conclusions which could be drawn out of this information. A concrete example could be the logging of each access of a specific information with the lack of further interpretations of this logged data (so it would remain a simple counter).
+		\\
+		% Implizites Wissen ist unbewusstes Wissen, das man nicht artikulieren kann, weil es im Können eines Individuums steckt und somit nicht kommuniziert werden kann. Fahrradfahren oder die Sozialisierung in den Unternehmensalltag sind Beispiele.		Unternehmen liegt impl. Wissen in Form von Betriebsdatenbanken und Data Warehouses vor. Hier werden impl. Daten, wie zB Häufigkeit von Zugriffen gespeichert, aber keine weiteren Informationen aus diesen Daten gezogen. Würde man das tun und die Daten nutzbar machen, wären es explizite Daten.
+		
+		\noindent \textit{Explicit knowledge} is articulated information in a well formulated structure which could be texts, articles, formulas, algorithms, computer programs, rules, laws, diagrams and other forms of held knowledge. A book of mathematics for example holds formulas and therefore unambiguous information. 
+		\\
+		%Explizites Wissen ist artikuliertes und in Form von Texten, Diagrammen usw. Festgehaltenes Wissen. Beispiele hierfür sind Produkt Spezifikationen, wissenschaftliche Formeln oder Computer Programme oder Regeln, auf die man sich geeinigt hat (Prüfungsordnungen, Rechtschreibung).
+		% Ein Mathebuch enthält Formeln, also eindeutig kommuniziertes Wissen.
+		% Auf dem Laptop ist explizites Wissen in Form von Hilfeseiten (Linux Man Pages) gespeichert und über das Internet greift man auf explizites Wissen, gespeichert auf Servern, zu, zB den Texten auf Wikipedia.
+		
+		%Quelle: \url{http://www.nickols.us/Knowledge_in_KM.htm}
+		
+		
+		\noindent \textit{fully observable} versus \textit{partially observable}:
+		\\ 
+		In einer voll beobachtbaren Umgebung ist der Agent jederzeit ausreichend informiert, um eine optimale Entscheidung zu treffen. In anderen Umgebungen müssen Agenten auf Erfahrungen oder Erinnerungen zurückgreifen, um die beste Entscheidung zu treffen.
+		Das Damespiel ist zB voll beobachtbar, während Poker nur teilweise beobachtbar ist. Möchte man für diese Spiele einen Algorithmus schreiben, um Entscheidungen nicht intuitiv, sondern logisch zu treffen, so ist beim Damespiel für jede Stellung auf dem Brett (die ja jederzeit sichtbar ist), ein Gegenschlag durch den Algorithmus eindeutig definierbar. Beim Poker ist unklar, welche Karten andere Spieler auf der Hand haben und somit kann aufgrund dieser fehlenden Information keine optimale Lösung gefunden werden.
+		
+		discrete versus continuous. 
+		Diskret meint, dass verschiedene Werte verschieden Bedeutungen haben. Beim Schach, wo man ein 8x8 Array hat, das verschiedene Werte represäntiert: 1=Turm, 2=Pferd, 3=Läufer usw. 2 ist dann etwas anderes als 1 und bedeutet nicht 2xTurm.
+		Kontinuierlich meint, dass die Werte zwar die gleiche Bedeutung, aber verschiedene Höhen haben. ZB Pixelwerte: 0 bedeutet “kein Licht” (schwarz) und 255 bedeutet “maximal viel Licht” (weiss). 
+		Problem bei diskreter Umgebung ist, dass man stark abstrahieren muss für diesen Fall, den die meisten Dinge in der Natur sind kontinuierlich (Temperatur, Gesundheit usw.) und nicht so einfach einzuteilen. Andererseits erlaubt diese Absatraktion eine Handhabbarkeit mit den Dingen (Lichtschalter: An, Aus ist einfach. Dimmbar wäre dann kontinuierlich und erfordert weitere Entscheidungen, was alles komplexer macht).
+		
+		deterministic versus stochastic. 
+		Deterministisch bedeutet, dass beim selben Dateninput immer die gleichen Ergebnisse herauskommen, da von mathematischen Gesetzen ausgegangen wird.
+		Bei der stochastischen Umgebungen wird mit Wahrscheinlichkeitswerten gerechnet, so dass die gleiche Eingabe zu einem anderen Ergebnis führen kann.
+		Kreuzworträtsel sind zB deterministisch, während medizinische Diagnosen stochastisch sind. Problem bei determ. Umfeld: unflexibel und es kann mit Fehlern weiter gerechnet werden, weil das System so starr ist. Problem bei stoch. Umfeld: uneindeutig. Für Planung und Folgeschritte sind präzise Werte / Informationen hilfreich, doch durch die Wahrscheinlichkeitsverteilung kommen stets mehrere Daten zur Weiterverarbeitung in Frage.
+		
+		% Quellen:
+		% - https://www.udacity.com/wiki/cs271/unit1-notes
+		% - http://www.aiqus.com/forum/questions/2539/discrete-vs-continuous
 		
 
 \end{document}
