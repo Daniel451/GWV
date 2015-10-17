@@ -52,6 +52,25 @@ Ein Mathebuch enthält Formeln, also eindeutig kommuniziertes Wissen.
 Auf dem Laptop ist explizites Wissen in Form von Hilfeseiten (Linux Man Pages) gespeichert und über das Internet greift man auf explizites Wissen, gespeichert auf Servern, zu, zB den Texten auf Wikipedia.
 
 Quelle: http://www.nickols.us/Knowledge_in_KM.htm
+
+
+
+fully versus partially observable. 
+In einer voll beobachtbaren Umgebung ist der Agent jederzeit ausreichend informiert, um eine optimale Entscheidung zu treffen. In anderen Umgebungen müssen Agenten auf Erfahrungen oder Erinnerungen zurückgreifen, um die beste Entscheidung zu treffen.
+Das Damespiel ist zB voll beobachtbar, während Poker nur teilweise beobachtbar ist. Möchte man für diese Spiele einen Algorithmus schreiben, um Entscheidungen nicht intuitiv, sondern logisch zu treffen, so ist beim Damespiel für jede Stellung auf dem Brett (die ja jederzeit sichtbar ist), ein Gegenschlag durch den Algorithmus eindeutig definierbar. Beim Poker ist unklar, welche Karten andere Spieler auf der Hand haben und somit kann aufgrund dieser fehlenden Information keine optimale Lösung gefunden werden.
+
+discrete versus continuous. 
+Diskret meint, dass verschiedene Werte verschieden Bedeutungen haben. Beim Schach, wo man ein 8x8 Array hat, das verschiedene Werte represäntiert: 1=Turm, 2=Pferd, 3=Läufer usw. 2 ist dann etwas anderes als 1 und bedeutet nicht 2xTurm.
+Kontinuierlich meint, dass die Werte zwar die gleiche Bedeutung, aber verschiedene Höhen haben. ZB Pixelwerte: 0 bedeutet “kein Licht” (schwarz) und 255 bedeutet “maximal viel Licht” (weiss). 
+Problem bei diskreter Umgebung ist, dass man stark abstrahieren muss für diesen Fall, den die meisten Dinge in der Natur sind kontinuierlich (Temperatur, Gesundheit usw.) und nicht so einfach einzuteilen. Andererseits erlaubt diese Absatraktion eine Handhabbarkeit mit den Dingen (Lichtschalter: An, Aus ist einfach. Dimmbar wäre dann kontinuierlich und erfordert weitere Entscheidungen, was alles komplexer macht).
+
+deterministic versus stochastic. 
+Deterministisch bedeutet, dass beim selben Dateninput immer die gleichen Ergebnisse herauskommen, da von mathematischen Gesetzen ausgegangen wird.
+Bei der stochastischen Umgebungen wird mit Wahrscheinlichkeitswerten gerechnet, so dass die gleiche Eingabe zu einem anderen Ergebnis führen kann.
+Kreuzworträtsel sind zB deterministisch, während medizinische Diagnosen stochastisch sind. Problem bei determ. Umfeld: unflexibel und es kann mit Fehlern weiter gerechnet werden, weil das System so starr ist. Problem bei stoch. Umfeld: uneindeutig. Für Planung und Folgeschritte sind präzise Werte / Informationen hilfreich, doch durch die Wahrscheinlichkeitsverteilung kommen stets mehrere Daten zur Weiterverarbeitung in Frage.
+
+Quellen: https://www.udacity.com/wiki/cs271/unit1-notes
+http://www.aiqus.com/forum/questions/2539/discrete-vs-continuous
 		
 
 \end{document}
