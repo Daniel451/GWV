@@ -1,0 +1,10 @@
+# Ignore all files
+*
+
+# Whitelist directories, .java and .txt
+!*/
+!*.py
+!*.txt
+!*.tex
+!*.pdf
+!.gitignore
