@@ -1,6 +1,5 @@
 import numpy as np
-
-__author__ = 'daniel'
+from collections import deque
 
 
 class UnweightedUndirectedGraph:
@@ -128,14 +127,14 @@ class UnweightedUndirectedGraph:
         assert type(node) is str or type(node) is int, "the type of node has to be str or int."
         assert node in self.nodes, "the node {0} does not exist.".format(node)
 
-        neighbors = set()
+        neighbors = deque()
 
         # iterate over all edges
         for edge in self.edges:
             if edge[0] == node and edge[1] != node:
-                neighbors.add(edge[1])  # append the neighbor if the tuple looks like (node, neighbor)
+                neighbors.append(edge[1])  # append the neighbor if the tuple looks like (node, neighbor)
             elif edge[0] != node and edge[1] == node:
-                neighbors.add(edge[0])  # append the neighbor if the tuple looks like (neighbor, node)
+                neighbors.append(edge[0])  # append the neighbor if the tuple looks like (neighbor, node)
 
         return neighbors
 

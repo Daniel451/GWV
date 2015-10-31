@@ -2,8 +2,6 @@ from graph_class import UnweightedUndirectedGraph
 from BFS import search_BFS
 from DFS import search_DFS
 
-__author__ = 'daniel'
-
 
 ############################################
 ### read the file and get a graph object ###
