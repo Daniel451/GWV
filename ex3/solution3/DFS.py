@@ -70,7 +70,7 @@ class search_DFS:
                 if neighbor not in self.queue and neighbor not in self.visited:
 
                     # insert the neighbor into the queue (at the end)
-                    self.queue.append(neighbor)
+                    self.queue.appendleft(neighbor)
 
                     # PLOTTING | update neighbor labels
                     self._label_neighbor(neighbor)
