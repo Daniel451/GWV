@@ -1,6 +1,6 @@
-from collections import deque
 from graph_class import UnweightedUndirectedGraph
 import matplotlib.pyplot as plt
+from collections import deque
 import time
 
 
@@ -69,7 +69,7 @@ class search_DFS:
                 # check if the neighbor already is in the queue or is already visited
                 if neighbor not in self.queue and neighbor not in self.visited:
 
-                    # insert the neighbor into the queue (at the end)
+                    # abuse the queue as a stack: insert the neighbor into the queue (at the front)
                     self.queue.appendleft(neighbor)
 
                     # PLOTTING | update neighbor labels
