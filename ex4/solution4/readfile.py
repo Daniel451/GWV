@@ -1,11 +1,18 @@
 import networkx as nx
 
 class GWV_reader:
+    """
+    GWV_reader reads a textfile, parses it's contents and manipulates the given
+    graph mostly in-place. Therefore nothing is returned but edited direclty.
+    The result is full graph containing all nodes and edges depending on the file's
+    contents.
+    """
+
     def __init__(self, G, filepath):
         """
-        Constructor
+        Constructor.
 
-        :param G: networkx Graph
+        :param G: an empty networkx Graph
         :type G: nx.Graph
 
         :param filepath: path to the file
@@ -19,8 +26,6 @@ class GWV_reader:
 
         # graph
         self.__G = G  # graph class
-
-        #
 
         # read the file's contents
         self.__read_file_data()
@@ -43,6 +48,10 @@ class GWV_reader:
         self.__columns = max(map(lambda line: len(line), self.__fdata))  # get the maximum x dimension
         self.__rows = len(self.__fdata)  # get the maximum y dimension
 
+        # set the dimensions as an attribute of graph G
+        self.__G.graph["columns"] = self.__columns
+        self.__G.graph["rows"] = self.__rows
+
         ####################
         # create the nodes #
         ####################
@@ -59,14 +68,14 @@ class GWV_reader:
         for row in xrange(1, self.__rows-1):  # iterate over the field's rows (without the outer walls)
             for column in xrange(1, self.__columns-1): # iterate over the field's columns (without outer walls)
                 # check field above for connectivity
-                if self.__G.node[(row-1, column)]["field"] != "x":
-                    self.__G.add_edge((row, column), (row-1, column))
+                if self.__G.node[(row-1, column)]["field"] != "x":  # is the node above not a wall?
+                    self.__G.add_edge((row, column), (row-1, column))  # ..then add an edge
                 # check field under for connectivity
-                if self.__G.node[(row+1, column)]["field"] != "x":
-                    self.__G.add_edge((row, column), (row+1, column))
+                if self.__G.node[(row+1, column)]["field"] != "x":  # is the node under not a wall?
+                    self.__G.add_edge((row, column), (row+1, column))  # ..then add an edge
                 # check field left for connectivity
-                if self.__G.node[(row, column-1)]["field"] != "x":
-                    self.__G.add_edge((row, column), (row, column-1))
+                if self.__G.node[(row, column-1)]["field"] != "x":  # is the node left not a wall?
+                    self.__G.add_edge((row, column), (row, column-1))  # ..then add an edge
                 # check field right for connectivity
-                if self.__G.node[(row, column+1)]["field"] != "x":
-                    self.__G.add_edge((row, column), (row, column+1))
+                if self.__G.node[(row, column+1)]["field"] != "x":  # is the node right not a wall?
+                    self.__G.add_edge((row, column), (row, column+1))  # ..then add an edge
