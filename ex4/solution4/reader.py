@@ -59,13 +59,18 @@ class GWV_reader:
         # goal path
         self.__G.graph["goal_path"] = list()
 
+        # portals
+        self.__G.graph["portals"] = dict()
+        self.__G.graph["portals"]["1"] = list()
+        self.__G.graph["portals"]["2"] = list()
+
         ####################
         # create the nodes #
         ####################
         for row in xrange(0, self.__rows):  # iterate over the rows
             for column in xrange(0, self.__columns):  # iterate over the columns
                 self.__G.add_node((row, column))  # adds the node to the graph
-                                                  # node identifieres are tuples
+                                                  # node identifiers are tuples
                                                   # like (1, 2) for the node at row 1, column 2
                 self.__G.node[(row, column)]["field"] = self.__fdata[row][column]
 
@@ -77,11 +82,8 @@ class GWV_reader:
                     self.__G.graph["goal"] = (row, column)
 
                 # save portal nodes
-                if self.__G.node[(row, column)]["field"] == "s":
-                    self.__G.graph["start"] = (row, column)
-                    self.__G.graph["robot_position"] = (row, column)
-                elif self.__G.node[(row, column)]["field"] == "g":
-                    self.__G.graph["goal"] = (row, column)
+                if self.__G.node[(row, column)]["field"] in ["1", "2"]:
+                    self.__G.graph["portals"][self.__G.node[(row, column)]["field"]].append((row, column))
 
 
         ####################
@@ -113,3 +115,12 @@ class GWV_reader:
                 if self.__G.node[(row, column+1)]["field"] != "x":  # is the node right not a wall?
                     self.__G.add_edge((row, column), (row, column+1))  # ..then add an edge..
                     self.__G.edge[(row, column)][(row, column+1)]["costs"] = 1  # ..and costs
+
+        ############################
+        # create edges for portals #
+        ############################
+        for lst in self.__G.graph["portals"].itervalues():
+            if len(lst) == 2:
+                self.__G.add_edge(lst[0], lst[1])
+                self.__G.edge[lst[0]][lst[1]]["costs"] = 0
+
