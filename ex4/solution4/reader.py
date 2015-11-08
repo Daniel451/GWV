@@ -56,6 +56,9 @@ class GWV_reader:
         self.__G.graph["open_set"] = set()
         self.__G.graph["closed_set"] = set()
 
+        # goal path
+        self.__G.graph["goal_path"] = list()
+
         ####################
         # create the nodes #
         ####################
@@ -67,6 +70,13 @@ class GWV_reader:
                 self.__G.node[(row, column)]["field"] = self.__fdata[row][column]
 
                 # save start and end node
+                if self.__G.node[(row, column)]["field"] == "s":
+                    self.__G.graph["start"] = (row, column)
+                    self.__G.graph["robot_position"] = (row, column)
+                elif self.__G.node[(row, column)]["field"] == "g":
+                    self.__G.graph["goal"] = (row, column)
+
+                # save portal nodes
                 if self.__G.node[(row, column)]["field"] == "s":
                     self.__G.graph["start"] = (row, column)
                     self.__G.graph["robot_position"] = (row, column)

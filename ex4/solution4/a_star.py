@@ -63,7 +63,9 @@ class GWV_a_star:
 
 
             # check if goal node is found
-            if current == self.__G.graph["goal"]:
+            if current == self.__G.graph["goal"] or self.__G.graph["goal"] in self.__open_set:
+                time.sleep(1)
+                self.__return_path_to_goal(current)
                 break
 
             # remove current node from open set
@@ -107,6 +109,24 @@ class GWV_a_star:
             last_current = current
             self.__relabel_node_field(last_current, "*")
             self.__GWVS.plot_graph(self.__G)
+
+
+    def __return_path_to_goal(self, current):
+        goal_path = [current]
+        predecessor = None
+
+        while predecessor != self.__G.graph["start"]:
+            predecessor = self.__came_from[current]
+            goal_path.append(predecessor)
+            current = predecessor
+
+        for node in goal_path:
+            self.__relabel_node_field(node, "#")
+
+        self.__G.graph["goal_path"] = goal_path
+
+        self.__GWVS.plot_graph(self.__G)
+
 
 
     def __relabel_node_field(self, node, new_label):

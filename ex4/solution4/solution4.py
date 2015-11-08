@@ -27,9 +27,16 @@ valid_keys = []
 
 for i, filestr in zip(range(0, len(GWVF.get_txt_files())), GWVF.get_txt_files()):
     valid_keys.append(str(i))
-    GWVS.add_str_to_scr("[{}]: {}\n".format(i, filestr))
+    GWVS.add_str_to_scr("[")
+    GWVS.add_str_to_scr("{}".format(i), 2)
+    GWVS.add_str_to_scr("]: ")
+    GWVS.add_str_to_scr("{}\n".format(filestr))
 
-GWVS.add_str_to_scr("\nPlease select a file (0 to {}): ".format(len(GWVF.get_txt_files()) - 1))
+GWVS.add_str_to_scr("\nPlease select a file (")
+GWVS.add_str_to_scr("0", 2)
+GWVS.add_str_to_scr(" to ")
+GWVS.add_str_to_scr("{}".format(len(GWVF.get_txt_files()) - 1), 2)
+GWVS.add_str_to_scr("): ")
 
 GWVS.refresh_screen()
 
