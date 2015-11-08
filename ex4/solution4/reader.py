@@ -52,6 +52,10 @@ class GWV_reader:
         self.__G.graph["columns"] = self.__columns
         self.__G.graph["rows"] = self.__rows
 
+        # set sets
+        self.__G.graph["open_set"] = set()
+        self.__G.graph["closed_set"] = set()
+
         ####################
         # create the nodes #
         ####################
@@ -65,6 +69,7 @@ class GWV_reader:
                 # save start and end node
                 if self.__G.node[(row, column)]["field"] == "s":
                     self.__G.graph["start"] = (row, column)
+                    self.__G.graph["robot_position"] = (row, column)
                 elif self.__G.node[(row, column)]["field"] == "g":
                     self.__G.graph["goal"] = (row, column)
 
@@ -74,22 +79,27 @@ class GWV_reader:
         ####################
         for row in xrange(1, self.__rows-1):  # iterate over the field's rows (without the outer walls)
             for column in xrange(1, self.__columns-1): # iterate over the field's columns (without outer walls)
+
+                # if current node is a wall, skip this node
+                if self.__G.node[(row, column)]["field"] == "x":
+                    continue
+
                 # check field above for connectivity
                 if self.__G.node[(row-1, column)]["field"] != "x":  # is the node above not a wall?
                     self.__G.add_edge((row, column), (row-1, column))  # ..then add an edge..
-                    self.__G.edge[(row, column), (row-1, column)]["costs"] = 1  # ..and costs
+                    self.__G.edge[(row, column)][(row-1, column)]["costs"] = 1  # ..and costs
 
                 # check field under for connectivity
                 if self.__G.node[(row+1, column)]["field"] != "x":  # is the node under not a wall?
                     self.__G.add_edge((row, column), (row+1, column))  # ..then add an edge..
-                    self.__G.edge[(row, column), (row+1, column)]["costs"] = 1  # ..and costs
+                    self.__G.edge[(row, column)][(row+1, column)]["costs"] = 1  # ..and costs
 
                 # check field left for connectivity
                 if self.__G.node[(row, column-1)]["field"] != "x":  # is the node left not a wall?
                     self.__G.add_edge((row, column), (row, column-1))  # ..then add an edge..
-                    self.__G.edge[(row, column), (row, column-1)]["costs"] = 1  # ..and costs
+                    self.__G.edge[(row, column)][(row, column-1)]["costs"] = 1  # ..and costs
 
                 # check field right for connectivity
                 if self.__G.node[(row, column+1)]["field"] != "x":  # is the node right not a wall?
                     self.__G.add_edge((row, column), (row, column+1))  # ..then add an edge..
-                    self.__G.edge[(row, column), (row, column+1)]["costs"] = 1  # ..and costs
+                    self.__G.edge[(row, column)][(row, column+1)]["costs"] = 1  # ..and costs

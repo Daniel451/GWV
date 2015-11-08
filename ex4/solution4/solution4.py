@@ -5,6 +5,7 @@ import networkx as nx
 from reader import GWV_reader
 from screen import GWV_screen
 from filelist import GWV_filelist
+from a_star import GWV_a_star
 
 # create an empty graph
 G = nx.Graph()
@@ -57,6 +58,9 @@ GWVR = GWV_reader(G, filepath)
 
 # show the file
 GWVS.plot_graph(G)
+
+GWVA = GWV_a_star(G, GWVS)
+GWVA.run_algorithm()
 
 
 # finally

@@ -13,7 +13,7 @@ class GWV_screen:
 
 
     def add_str_to_scr(self, a_str):
-        self.stdscr.addstr(a_str)
+        self.stdscr.addstr(str(a_str))
 
 
     def clear_screen(self):
@@ -34,6 +34,10 @@ class GWV_screen:
         :type G: nx.Graph
         """
         self.clear_screen()
+
+        self.add_str_to_scr("robot position: {}\n".format(G.graph["robot_position"]))
+        self.add_str_to_scr("open set: {}\n".format(sorted(G.graph["open_set"])))
+        #self.add_str_to_scr("closed set: {}\n\n".format(sorted(G.graph["closed_set"])))
 
         for i_row in xrange(0, G.graph["rows"]):
             for i_column in xrange(0, G.graph["columns"]):
