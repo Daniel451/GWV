@@ -1,0 +1,71 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{polynom} % Polynomdivision
+\usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+\usepackage{csquotes} % Quotes
+\usepackage{pdfpages} % include whole PDF pages
+
+
+
+\title{\textbf{\huge Grundlagen der Wissensverarbeitung
+\\\Large Blatt 4}}
+\author{Daniel Speck, Lena Niermeyer}
+\date{07.11.2015}
+
+\setlength{\topmargin}{-1.0cm}
+\setlength{\textheight}{650pt}
+
+
+\begin{document}
+
+
+	% Titel, Autor & Abgabedatum
+	\maketitle
+	
+	
+	\section*{Exercise 1.2 (heuristic search)}
+
+		\subsection*{1.}
+		
+			We chose to take
+			
+			\begin{equation*}
+				h(node) = 
+				\text{abs}(\text{node}_x - \text{goal}_x)
+				+
+				\text{abs}(\text{node}_y - \text{goal}_y)
+			\end{equation*}
+			\\
+			\noindent as our heuristic function. Basically this returns the sum of the delta of rows plus the delta of columns between the current node and the goal node. This always equals the minimal amount of edges on a 2D chess-like environment with the only movement options of \enquote{up}, \enquote{down}, \enquote{left}, \enquote{right}. Therefore this heuristic is \textit{admissible}.
+		
+			
+		\subsection*{2.}
+		
+			Yes, we can ensure termination. Our algorithm simply expands and visits every single node which is reachable in the case that the goal node is not reachable. After expanding every reachable node, the open set is empty and no more nodes are available for expanding so the algorithm ends its while-loop. This behavior ensures termination even when the goal node is not reachable.
+			
+			
+		\subsection*{3.}
+		
+			We have implemented portals in our file parser and our algorithm recognizes them. This behavior can be seen e.g. in \enquote{test\_env\_7.txt}. Our implementation simply adds an edge with 0 costs between the portal nodes.
+			\\
+			However, we have not implemented a new heuristic function and therefore in \enquote{blatt4\_environment\_b.txt} the algorithm does not find the optimal solution. For doing so, the heuristic would have to update not only the heuristic costs of the portal nodes but the heuristic costs of every node between the start and portal 2. Otherwise the portal node 2 in the upper left would never be visited, because the nodes in between would be too expansive.
+			
+			
+		\subsection*{4.}
+		
+			Since the complexity of an A* search depends on the heuristic function we are not really sure what our complexity is. Considering that the calculation of the delta in the equation never changes and only calculates a sum of two subtractions, the equation itself should have the time complexity $O(1)$, because the input size of the problem is irrelevant. Calculating this for every node in the frontier should end up in $O(n)$, because we never expand a node twice. 
+			\\
+			As we used the library \textit{networkx} this time, we are not sure about the space complexity, either (depending on networkx's implementation). Our own Graph class from exercise 3 has something like $O(2*(n+e)) = O(n+e)$ since we are storing each node and edge in a dictionary and additionally in a representation array containing the label of each node and edge.
+		
+		
+
+\end{document}
+
+
+
+
+
