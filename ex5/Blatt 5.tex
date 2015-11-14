@@ -1,0 +1,107 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{pdfpages} % include whole PDF pages
+\usepackage[pdftex]{graphicx}
+% \usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+
+
+\title{\textbf{\huge Grundlagen der Wissensverarbeitung
+		\\\Large Blatt 5}}
+\author{Daniel Speck, Lena Niermeyer}
+\date{14.11.2015}
+
+\setlength{\topmargin}{-1.0cm}
+\setlength{\textheight}{650pt}
+
+
+\begin{document}
+		
+	% Titel, Autor & Abgabedatum
+	\maketitle
+		
+	\section*{Exercise 1.2: (Search and Parsing)}
+	
+
+\textbf{1.a) By what operations is the input transformed into the output? What do these operations do?}
+\\
+The input is a sentence of length n, which should be grammatically correct. Output is the dependency tree. The following operations transform the sentence into the tree:
+Left-Arc, Right-Arc, Reduce and Shift.
+\\
+Shift pushes the next input token n onto the stack.
+Reduce pops the node n on top of the stack.
+Left-Arc pops the node n on top of the stack and adds the arc relation (n',n), where n' is the next input token.
+Right-Arc pushes the next input token n' on top of the stack (before that, n was top of the stack) and adds the arc relation (n,n').
+\\
+\\
+\textbf{b) When does the parsing algorithm terminate?} \\
+The parsing algorithm terminates, if the triple is of the form $\langle$S,nil,A$\rangle$. S stands for the list in the stack, nil means, that the sentence W was accepted and no input tokens remain in the list I. A is the set of arc relations.
+\\
+\\
+\textbf{c) Describe the formal properties of a dependency tree as defined in the paper.}\\
+Dependency trees / graphs should be acyclic, connected and projective.\\
+Acyclic (no loops) means, that two nodes, who are neighbours, can only be connected via one directed arc. Otherwise they would create a cycle. \\
+Connected means, that every node needs minimum one neighbour. If one node has no neighbour it would be a single node, like a word alone, not part of the sentence, which has to be transformed into a dependency tree. \\
+Projective means, that, if the sentence has a relation from n to n', when n appears before n'' and n'' before n' in the sentence, then there must be an arc from n to n'' or an arc from n' to n''. For exapmle: The sentence "John saw a dog": saw is n, a is n'', dog is n'. saw has an arc to dog and dog has an arc to a. So it's projective. \\
+\\
+\\
+\textbf{d) For each property: Give an example dependency tree that violates the property.
+Note: We ask for a tree, not a sentence! Do not try to find a matching sentence to your trees, it will only distract you.}
+
+	%\graphicspath
+	\includegraphics[height=5cm]{1.png} \\
+	\includegraphics[height=7cm]{2.png} \\
+	
+
+
+\textbf{2.  Try  to  use  the  proposed  parser  actions  to  produce  the  tree  depicted  in  Figure  1. Write down the steps and the intermediate states.} 
+\\
+W = Der Mann isst eine Giraffe.
+\\
+R $\supseteq$  $ \{ $Der $\leftarrow$ Mann,\\
+	Mann 	$\leftarrow$ isst,\\
+	isst 	$\rightarrow$ Giraffe,\\
+	eine 	$\leftarrow$ Giraffe $ \} $
+\\
+$\langle$ nil, Der Mann isst eine Giraffe, $\emptyset$  $\rangle$ [Initialization] \\
+$\rightarrow$ w/ S $\langle$Der, Mann isst eine Giraffe, $\emptyset$  $\rangle$ \\
+$\rightarrow$ w/ LA $\langle$nil, Mann isst eine Giraffe, $ \{ $(Mann, Der)$ \} $$\rangle$ \\
+$\rightarrow$ w/ S $\langle$Mann, isst eine Giraffe, $ \{ $(Mann, Der)$ \} $$\rangle$ \\
+$\rightarrow$ w/ LA $\langle$nil, isst eine Giraffe, $ \{ $(Mann, Der), (isst, Mann)$ \} $$\rangle$ \\
+$\rightarrow$ w/ S $\langle$isst, eine Giraffe, $ \{ $(Mann, Der), (isst, Mann)$ \} $$\rangle$ \\
+$\rightarrow$ w/ S $\langle$eine isst, Giraffe, $ \{ $(Mann, Der), (isst, Mann)$ \} $$\rangle$ \\
+$\rightarrow$ w/ LA $\langle$isst, Giraffe, $ \{ $(Mann, Der), (isst, Mann), (Giraffe, eine)$ \} $$\rangle$ \\
+$\rightarrow$ w/ RA $\langle$Giraffe isst, nil, $ \{ ${(Mann, Der), (isst, Mann), (Giraffe, eine), (isst, Giraffe)$ \}$$\rangle$ [Termination] \\
+	\\
+\textbf{3. If you view parsing using the proposed parsing algorithm as a search problem.}\\
+
+\textbf{What are the search states?} \\
+The search states are represented by the triples $\langle$S,I,A$\rangle$, where S is the stack, I the input tokens and A the arc relations. This triple changes with the Parser transitions. \\
+
+\textbf{What is the start state?} \\
+The start state is the Initialization $\langle$nil,W,$\emptyset$$\rangle$, where nil is an empty stack, W is the sentence which has to be transformed into a dependency tree and the empty set is placeholder for the arc relations to come. \\
+
+\textbf{What are the end states?} \\
+The parsing algorithm terminates, if the triple is of the form $\langle$S,nil,A$\rangle$. S stands for the list in the stack, nil means, that the sentence W was accepted and no input tokens remain in the list I. A is the set of arc relations. Termination has no condition, except that the input token list has to be empty. So it's possible to have more then one end state, because for example \\ $\langle$Giraffe isst, nil, $ \{ ${(Mann, Der), (isst, Mann), (Giraffe, eine), (isst, Giraffe)$ \}$$\rangle$ \\ 
+	is an end state, but it is possible to reduce it to \\
+	 $\langle$isst, nil, $ \{ ${(Mann, Der), (isst, Mann), (Giraffe, eine), (isst, Giraffe)$ \}$$\rangle$ or \\ $\langle$nil, nil, $ \{ ${(Mann, Der), (isst, Mann), (Giraffe, eine), (isst, Giraffe)$ \}$$\rangle$, which are also end states. \\
+	 		
+\textbf{What are the state transitions?} \\
+The state transitions are the parser transitions Left-Arc, Right-Arc, Reduce and Shift. They transform the states to different states, by changing the stack, input token list or arc relations list. \\
+
+\textbf{Can the search space be created before parsing starts?}\\
+It has to. We need sentence W for the Initialization. \\
+
+\textbf{What is the advantage of the proposed algorithm in contrast to simply trying to find a good dependency tree by enumerating all possible trees and selecting the best one from them?}\\
+Because this would take more time. For example: The sentence "Der Mann isst eine Giraffe". We needed 8 parser transitions to get the dependency tree. But we could find 5! = 120 trees for this sentence (5 faculty, because the sentence has 5 words and we could find 120 combinations to draw a tree).\\
+
+\textbf{For the search strategies discussed so far:  are they a good fit for this search problem and why (not)?} \\
+No they aren't. BFS marks the nodes, which appaear in the same generation of a tree. But it doesn't create an arc relation of neighboured nodes to save the information about grammatical relations. Similar problem with DFS. A* may have grammar information, but also does not save arc relations.\\
+
+\textbf{How would you design a parser using the parser actions together with an appropriate search procedure?} \\
+Create consistency parse tree. Search sentence for root node (within a sentence, there is only ever one root node. It is the word with no arc directed on it, just from it.). Then find branch nodes, which connect to child nodes. We get this information from the grammar (relations). 
+
+\end{document}
