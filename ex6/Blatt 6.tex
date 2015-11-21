@@ -1,0 +1,97 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{pdfpages} % include whole PDF pages
+\usepackage[pdftex]{graphicx}
+% \usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+
+
+\title{\textbf{\huge Grundlagen der Wissensverarbeitung
+		\\\Large Blatt 6}}
+\author{Daniel Speck, Lena Niermeyer}
+\date{21.11.2015}
+
+\setlength{\topmargin}{-1.0cm}
+\setlength{\textheight}{650pt}
+
+
+\begin{document}
+		
+	% Titel, Autor & Abgabedatum
+	\maketitle
+		
+	\section*{Exercise 1.1: (Constraints)}
+	
+
+\textbf{Formalize this riddle in the form of a constraint network.}
+\\
+Ideas: \\
+We have the following relations: \\
+r1: Y = (D + E) mod 10 \\
+r2: E = (N + R + ((D + E) mod 10)) mod 10 \\
+r3: N = (E + O + (N + R + ((D + E) mod 10)) mod 10) mod 10 \\
+r4: O = (S + M + (E + O + (N + R + ((D + E) mod 10)) mod 10) mod 10) mod 10 \\ \\
+
+Since we have relations between 3 variables (e.g. Y, D, E, because Y = (D + E) mod 10), 3 arcs in the network are the result. \\
+The mod 10 indicates a possible carry after each sum. \\
+Every variable can be a digit between 0 and 9. S and M can't be zero, because they are the leading digit of "SEND" ans "MONEY"/"MORE". \\
+Every variable represents another digit, so no variable can be the same as another. \\
+
+
+
+
+	%\graphicspath
+	\includegraphics[height=12cm]{ex1.png} \\
+	
+	
+
+
+\textbf{Manual constraint solving. First, try to solve the problem without any formal methods or tools.} 
+\\ \\
+Human solution: Trial and Error with some logic. \\ \\
+Step 1: \\ \\
+Which words can be filled in 1Across (A1xD1, A1xD2, A1xD3) or 1Down (A1xD1, A2xD1, A3xD1)? \\ \\
+\textbf{add?} No, because then we need 2 words, which start with d. But we don't have any word starting with d. \\
+(...) \\
+\textbf{are?} Yes, because we have other words starting with a or e and one word starting with r. \\
+(...)\\
+\textbf{bag?} No because we don't have a word starting with g. \\
+(...) \\
+\textbf{lee?} No, because we would need a second word starting with l and we don't have one. \\
+\textbf{oaf?} No, because we would need a second word starting with o and we don't have one. \\
+(...) \\ \\
+
+The following words remain, if we exclude words from the list by the logic above: \\ 
+are, art, bat, bee, boa, ear, eel, eft, far, fat, tar. \\ \\
+
+Step 2: \\
+Enter the remaining words from step 1, which start with the same letter 1Across and 1Down. Test if possible: \\
+\textbf{are and art.} Impossible, because then we would need two words starting with r, but we have only one from the orogin list (rat). \\
+\textbf{far and fat.} Impossible, because if we use far, we also have to enter rat in 3Down. Then we have a word starting and ending with t in 3Across. But we don't have a word of this form in the origin list. \\
+\textbf{tar.} Impossible, because no other word starting with t in the list from step 1. \\
+\textbf{ear and eel, ear and eft or eel and eft.} Impossible, (...). \\
+\textbf{bat and bee or bat and boar.} Impossible. Case bat and bee: If we choose bee as 1Across and bat as 1Down, then we can put the words ear, eel, eft 2Down and 3 Down. But that gives us an r, l or t in A3xD2, which is not possible, because only words from origin list start with t, but none of them has r, l or t as second letter. (...)  \\ \\
+Only one solution: \textbf{bee and boa} in 1Across and 1Down. Rest see table: \\
+
+
+\begin{center}
+	\begin{tabular}{ c c c c}
+	x & D1 & D2 & D3 \\
+	A1 & b & e & e \\ 
+	A2 & o & a & f \\  
+	A3 & a & r & t    
+	\end{tabular}
+\end{center}
+
+
+\textbf{Solve the problem by hand using domain consistency as a first step and as a second step the arc consistency.} \\
+
+TO DO !
+
+
+
+
+\end{document}
