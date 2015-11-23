@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{listings}
 %\usepackage{pdfpages} % include whole PDF pages
 \usepackage[pdftex]{graphicx}
 % \usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
@@ -28,14 +29,14 @@
 
 \textbf{Formalize this riddle in the form of a constraint network.}
 \\
-Ideas: \\
-We have the following relations: \\
+We have the following relations:
+\\\\
 r1: Y = (D + E) mod 10 \\
 r2: E = (N + R + ((D + E) mod 10)) mod 10 \\
 r3: N = (E + O + (N + R + ((D + E) mod 10)) mod 10) mod 10 \\
-r4: O = (S + M + (E + O + (N + R + ((D + E) mod 10)) mod 10) mod 10) mod 10 \\ \\
+r4: O = (S + M + (E + O + (N + R + ((D + E) mod 10)) mod 10) mod 10) mod 10 \\
 
-Since we have relations between 3 variables (e.g. Y, D, E, because Y = (D + E) mod 10), 3 arcs in the network are the result. \\
+\noindent Since we have relations between 3 variables (e.g. Y, D, E, because Y = (D + E) mod 10), 3 arcs in the network are the result. \\
 The mod 10 indicates a possible carry after each sum. \\
 Every variable can be a digit between 0 and 9. S and M can't be zero, because they are the leading digit of "SEND" ans "MONEY"/"MORE". \\
 Every variable represents another digit, so no variable can be the same as another. \\
@@ -44,12 +45,13 @@ Every variable represents another digit, so no variable can be the same as anoth
 
 
 	%\graphicspath
-	\includegraphics[height=10cm]{ex1.png} \\
+	\noindent
+	\includegraphics[width=12.1cm]{ex1.png} \\
 	
 	
 
 
-\textbf{Manual constraint solving. First, try to solve the problem without any formal methods or tools.} 
+\noindent\textbf{Manual constraint solving. First, try to solve the problem without any formal methods or tools.} 
 \\ \\
 Human solution: Trial and Error with some logic. \\ \\
 Step 1: \\ \\
@@ -64,11 +66,11 @@ Which words can be filled in 1Across (A1xD1, A1xD2, A1xD3) or 1Down (A1xD1, A2xD
 \textbf{oaf?} No, because we would need a second word starting with o and we don't have one. \\
 (...) \\ \\
 
-The following words remain, if we exclude words from the list by the logic above: \\ 
+\noindent The following words remain, if we exclude words from the list by the logic above: \\ 
 are, art, bat, bee, boa, ear, eel, eft, far, fat, tar. \\ \\
 
 Step 2: \\
-Enter the remaining words from step 1, which start with the same letter 1Across and 1Down. Test if possible: \\
+\noindent Enter the remaining words from step 1, which start with the same letter 1Across and 1Down. Test if possible: \\
 \textbf{are and art.} Impossible, because then we would need two words starting with r, but we have only one from the orogin list (rat). \\
 \textbf{far and fat.} Impossible, because if we use far, we also have to enter rat in 3Down. Then we have a word starting and ending with t in 3Across. But we don't have a word of this form in the origin list. \\
 \textbf{tar.} Impossible, because no other word starting with t in the list from step 1. \\
@@ -86,12 +88,38 @@ Only one solution: \textbf{bee and boa} in 1Across and 1Down. Rest see table: \\
 	\end{tabular}
 \end{center}
 
+\newpage
 
-\textbf{Solve the problem by hand using domain consistency as a first step and as a second step the arc consistency.} \\
+\noindent \textbf{Solve the problem by hand using domain consistency as a first step and as a second step the arc consistency.} \\
 
-TO DO !
+\noindent At the beginning every variable's domain consists of the full set of characters of all words. This set is:
 
+\begin{lstlisting}
+a b c d e f g h i k l m n o p r s t u w y
+\end{lstlisting}
 
+\noindent At first we define our domain consistency constraints. Considering that the riddle only allows words with a length of 3 characters and they either have to be written from left to right or from top to bottom we can create constraints for the starting letters of every word. $A3D1$, $A2D1$, $A1D1$, $A1D2$ and $A1D3$ can not contain other letters than the first letters of every word. So we get the set of first letters of every word and create the intersection with each of the aforementioned variable's domains.
+\\
+The next step are the characters in the middle of each word. Again we create a set of these characters and then create the intersection with this set and $A2D1$, $A2D2$, $A2D3$, $A1D2$ and $A3D2$ because these fields contain the characters in the middle of each word.
+\\
+We repeat this procedure with the end of every word's character. After building the set of this characters we create the intersection of this set and $A3D1$, $A3D2$, $A3D3$, $A2D2$ and $A1D3$ since these fields represent the ending of each word in row or column.
+\\
+\\
+After this approach our domains look like this:
 
+\begin{center}
+	\begin{tabular}{ c c c c}
+	  & D1 & D2 & D3 \\
+	A1 & a b e f l o r t & a e f o r & a e f l o r t \\ 
+	A2 & a e f o r & a d e f g i n o p r s u w y & a d e f g n o r y \\  
+	A3 & a e f l o r t & a d e f g n o r & a c d e f g h k l m n o r t y    
+	\end{tabular}
+\end{center}
+
+\noindent Now we define our arc consistency constraints. Each row ($A1$, $A2$, $A3$) and each column ($D1$, $D2$, $D3$) has to be pairwise unequal to every other row / column because no word should appear twice so we define a pairwise unequal arc consistency and apply it on each row and each column.
+
+\noindent In the end we define ternary arc constraints for each row and column so that they only can contain a valid word. E.g. such a constraint would be applied on the variables $A1D1$, $A1D2$, $A1D3$ (row $A1$) so that they can only contain a valid tuple (one word like \textit{add}).
+
+\noindent On these constraints the generalized arc consistency algorithm would be applied. In the beginning every arc is marked, after one is processed its mark is removed. Every arc that is possibly affected by the applying of one arc (constraint) is being marked for processing again. Therefore we somehow \"intelligently\" visit every arc which possibly could supply an update to our variables.
 
 \end{document}

@@ -127,9 +127,7 @@ class Crosswords:
 
             linebuffer += str(key) + ": "
 
-            setbuffer = ""
-            for elem in cset:
-                setbuffer += str(elem) + " "
+            setbuffer = "".join(sorted([elem + " " for elem in cset]))
             linebuffer += setbuffer.ljust(ssize*2+2, " ")
 
 
