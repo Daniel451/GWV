@@ -1,0 +1,64 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{pdfpages} % include whole PDF pages
+\usepackage[pdftex]{graphicx}
+% \usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+
+
+\title{\textbf{\huge Grundlagen der Wissensverarbeitung
+		\\\Large Blatt 7}}
+\author{Daniel Speck, Lena Niermeyer}
+\date{28.11.2015}
+
+\setlength{\topmargin}{-1.0cm}
+\setlength{\textheight}{650pt}
+
+
+\begin{document}
+		
+	% Titel, Autor & Abgabedatum
+	\maketitle
+		
+	\section*{Exercise 1.2: (CSI Stellingen)}
+	
+
+\textbf{Introduction to Diagnosis: A Murder Investigation.}
+\\
+The question is: “Who is the murderer?” \\
+First, we assign symbols (atoms) to the clues: \\
+\\
+g : gardener is murderer \\
+b : butler is murderer \\
+a : gardener was working in the garden all day \\
+r : butler was working in the garage all day \\
+d : gardener has dirt on his hands \\
+i : butler has dirt on his hands \\
+\\
+Next we rewrite the clues inside these symbols, and logical operators: \\
+Knowledge Base:\\
+Assumables: \\
+a $\rightarrow$ $\lnot$g \\
+r $\rightarrow$ $\lnot$b \\
+Observations: \\
+$\lnot$d \\
+i \\
+Rules: \\
+a $\rightarrow$ d \\
+r $\rightarrow$ i \\
+Integrity Constraints: \\
+d $\lor$ $\lnot$d \\
+i $\lor$ $\lnot$i \\
+From observation $\lnot$d and rule a $\rightarrow$ d we deduce with integrity constraint d $\lor$ $\lnot$d that $\lnot$a. \\
+From $\lnot$a and assumable a $\rightarrow$ $\lnot$g we deduce g. So the gardener is the murderer. \\
+Minimal conflict: \\
+
+Minimal diagnosis: \\
+\\
+\section*{Exercise 1.3: (Diagnosis)}
+
+
+\end{document}
