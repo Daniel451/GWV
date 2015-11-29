@@ -55,10 +55,48 @@ i $\lor$ $\lnot$i \\
 From observation $\lnot$d and rule a $\rightarrow$ d we deduce with integrity constraint d $\lor$ $\lnot$d that $\lnot$a. \\
 From $\lnot$a and assumable a $\rightarrow$ $\lnot$g we deduce g. So the gardener is the murderer. \\
 Minimal conflict: \\
-
+$ \{ $a,g$ \} $ \\
 Minimal diagnosis: \\
+$ \{ $a$ \} $, $ \{ $r$ \} $ \\
+
+\section*{Exercise 1.3: (Diagnosis)} 
+Representing the car engine environment: \\
+propositions: \\
+full-battery.\\
+turned-key.\\
+working-regulation.\\
+noise1-starter. \\
+noise3-engine. \\
+unclogged-filter. \\
+noise2-pump. \\
+full-tank. \\
 \\
-\section*{Exercise 1.3: (Diagnosis)}
+inferences:\\
+on-battery $\leftarrow$ turned-key $\land$ working-regulation \\
+noise1-starter $\leftarrow$ turned-key $\land$ noise3-engine \\
+turned-key $\leftarrow$ on-battery $\land$ working-regulation $\land$ noise1-starter\\
+noise3-engine  $\leftarrow$ noise1-starter $\land$ unclogged-filter \\
+working-regulation $\leftarrow$ on-battery $\land$ turned-key $\land$ noise2-pump \\
+unclogged-filter $\leftarrow$ noise3-engine $\land$ noise2-pump \\
+noise2-pump $\leftarrow$ working-regulation $\land$ unclogged-filter $\land$ full-tank \\
+full-tank $\leftarrow$ noise2-pump \\
+\\
+diagnosis: \\
+for all 4 cases: \\
+$\lnot$full-battery $\lor$
+$\lnot$turned-key $\lor$
+$\lnot$working-regulation $\lor$
+$\lnot$noise1-starter $\lor$
+$\lnot$noise3-engine $\lor$
+$\lnot$unclogged-filter $\lor$
+$\lnot$noise2-pump $\lor$
+$\lnot$full-tank \\
+\\
+Because of the dependencies between the grey boxes, each part of the car relies to another and so the source of error could be everything at anytime. \\
+Minimal diagnosis is subsets of fault possibilities:
+(full-battery), (turned-key), (noise1-starter, noise2-pump), etc. Here, because of 8 sources of error: $2^{8}$ sets.
+
+
 
 
 \end{document}
