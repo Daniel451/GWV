@@ -23,13 +23,13 @@ class Markov(object):
         # total amount of words
         self.len_of_words = len(self.words)
 
-        self.cache_bigrams = {}
+        self.keys_bigrams = {}
         self.database_bigrams()
 
-        self.cache_trigrams = {}
+        self.keys_trigrams = {}
         self.database_trigrams()
 
-        self.cache_quadrograms = {}
+        self.keys_quadrograms = {}
         self.database_quadrograms()
 
 
@@ -66,78 +66,104 @@ class Markov(object):
 
 
     def bigrams(self):
+        """
+        bigram generator
+        """
         for i in xrange(len(self.words) - 1):
             yield (self.words[i], self.words[i + 1])
 
 
     def trigrams(self):
+        """
+        trigram generator
+        """
         for i in xrange(len(self.words) - 2):
             yield (self.words[i], self.words[i + 1], self.words[i + 2])
 
 
     def quadrograms(self):
+        """
+        quadrogram generator
+        """
         for i in xrange(len(self.words) - 3):
             yield (self.words[i], self.words[i + 1], self.words[i + 2], self.words[i + 3])
 
 
     def database_bigrams(self):
+        """
+        build up bigram database
+        """
         for w1, w2 in self.bigrams():
             key = w1
-            if key in self.cache_bigrams:
-                self.cache_bigrams[key].append(w2)
+            if key in self.keys_bigrams:
+                self.keys_bigrams[key].append(w2)
             else:
-                self.cache_bigrams[key] = [w2]
+                self.keys_bigrams[key] = [w2]
 
 
     def database_trigrams(self):
+        """
+        build up trigram database
+        """
         for w1, w2, w3 in self.trigrams():
             key = (w1, w2)
-            if key in self.cache_trigrams:
-                self.cache_trigrams[key].append(w3)
+            if key in self.keys_trigrams:
+                self.keys_trigrams[key].append(w3)
             else:
-                self.cache_trigrams[key] = [w3]
+                self.keys_trigrams[key] = [w3]
 
 
     def database_quadrograms(self):
+        """
+        build up quadrogram database
+        """
         for w1, w2, w3, w4 in self.quadrograms():
             key = (w1, w2, w3)
-            if key in self.cache_quadrograms:
-                self.cache_quadrograms[key].append(w4)
+            if key in self.keys_quadrograms:
+                self.keys_quadrograms[key].append(w4)
             else:
-                self.cache_quadrograms[key] = [w4]
+                self.keys_quadrograms[key] = [w4]
 
 
     def generate_markov_text_bigrams(self, size=25):
+        """
+        Generates a sequence of words via a markov chain (bigrams) with variable size
+        """
         seed = random.randint(0, self.len_of_words - 2)
-        seed_word, next_word = self.words[seed], self.words[seed + 1]
-        w1, w2 = seed_word, next_word
-        gen_words = []
+        start_word = self.words[seed]
+        w1 = start_word
+        wordlist = []
         for i in xrange(size):
-            gen_words.append(w1)
-            w1, w2 = w2, random.choice(self.cache_bigrams[w1])
-        gen_words.append(w2)
-        return ' '.join(gen_words)
+            wordlist.append(w1)
+            w1 = random.choice(self.keys_bigrams[w1])
+        return " ".join(wordlist)
 
 
     def generate_markov_text_trigrams(self, size=25):
+        """
+        Generates a sequence of words via a markov chain (trigrams) with variable size
+        """
         seed = random.randint(0, self.len_of_words - 3)
-        seed_word, next_word = self.words[seed], self.words[seed + 1]
-        w1, w2 = seed_word, next_word
-        gen_words = []
+        start_word, next_word = self.words[seed], self.words[seed + 1]
+        w1, w2 = start_word, next_word
+        wordlist = []
         for i in xrange(size):
-            gen_words.append(w1)
-            w1, w2 = w2, random.choice(self.cache_trigrams[(w1, w2)])
-        gen_words.append(w2)
-        return ' '.join(gen_words)
+            wordlist.append(w1)
+            w1, w2 = w2, random.choice(self.keys_trigrams[(w1, w2)])
+        wordlist.append(w2)
+        return " ".join(wordlist)
 
 
     def generate_markov_text_quadrograms(self, size=25):
+        """
+        Generates a sequence of words via a markov chain (quadrograms) with variable size
+        """
         seed = random.randint(0, self.len_of_words - 4)
-        seed_word, next_word, next_next_word = self.words[seed], self.words[seed + 1], self.words[seed + 2]
-        w1, w2, w3 = seed_word, next_word, next_next_word
-        gen_words = []
+        start_word, next_word, next_next_word = self.words[seed], self.words[seed + 1], self.words[seed + 2]
+        w1, w2, w3 = start_word, next_word, next_next_word
+        wordlist = []
         for i in xrange(size):
-            gen_words.append(w1)
-            w1, w2, w3 = w2, w3, random.choice(self.cache_quadrograms[(w1, w2, w3)])
-        gen_words.append(w2)
-        return ' '.join(gen_words)
+            wordlist.append(w1)
+            w1, w2, w3 = w2, w3, random.choice(self.keys_quadrograms[(w1, w2, w3)])
+        wordlist.append(w2)
+        return " ".join(wordlist)
