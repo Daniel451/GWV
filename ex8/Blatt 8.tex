@@ -1,0 +1,111 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{pdfpages} % include whole PDF pages
+\usepackage[pdftex]{graphicx}
+% \usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+
+
+\title{\textbf{\huge Grundlagen der Wissensverarbeitung
+		\\\Large Blatt 8}}
+\author{Daniel Speck, Lena Niermeyer}
+\date{05.12.2015}
+
+\setlength{\topmargin}{-1.0cm}
+\setlength{\textheight}{650pt}
+
+
+\begin{document}
+		
+	% Titel, Autor & Abgabedatum
+	\maketitle
+		
+	\section*{Exercise 1.3: (Diagnosis (cont.))}
+	
+
+\textbf{Car engine.}
+\\
+Belief network: \\
+	\noindent
+	\includegraphics[width=8.1cm]{belief.png} \\ \\
+	\\
+	P(battery$\_$ok) = 0.9 \\
+	P(key$\_$ok $|$ battery$\_$ok) = 0.9 $\cdot$ 0.9 = 0.81 \\
+	P(fuelreg$\_$ok $|$ battery$\_$ok, key$\_$ok) = 0.9 $\cdot$ 0.9 $\cdot$ 0.81 = 0.6561 \\
+	P(starter$\_$ok $|$ key$\_$ok) = 0.9 $\cdot$ 0.81 = 0.729 \\
+	P(engine$\_$ok $|$ starter$\_$ok, filter$\_$ok) = 0.9 $\cdot$ 0.729 $\cdot$ 0.4782969 = 0.3138106 \\
+	P(filter$\_$ok $|$ pump$\_$ok) = 0.9 $\cdot$ 0.531441 = 0.4782969 \\
+	P(pump$\_$ok $|$ tank$\_$ok, fuelreg$\_$ok) = 0.9 $\cdot$ 0.9 $\cdot$ 0.6561 = 0.531441 \\
+	P(tank$\_$ok) = 0.9 \\
+	\\
+	Probability that the battery is working: \\
+	P(battery$\_$ok) = 0.9 \\ \\
+	Probability that the starter is working: \\
+	P(starter$\_$ok $|$ key$\_$ok) = 0.9 $\cdot$ 0.81 = 0.729 \\ \\
+	Probability that the engine is working: \\
+	P(engine$\_$ok $|$ starter$\_$ok, filter$\_$ok) = 0.9 $\cdot$ 0.729 $\cdot$ 0.4782969 = 0.3138106 \\ \\
+	Probability  that  the  engine  is  working  after  making  the  observation  that  the
+	pump is working: \\
+	Following changes: \\
+	P(pump$\_$ok $|$ tank$\_$ok, fuelreg$\_$ok) = 1.0 $\cdot$ 0.9 $\cdot$ 0.6561 = 0.59049 \\
+	P(filter$\_$ok $|$ pump$\_$ok) = 0.9 $\cdot$ 0.59049 = 0.531441 \\
+	P(engine$\_$ok $|$ starter$\_$ok, filter$\_$ok) = 0.9 $\cdot$ 0.729 $\cdot$ 0.531441 = 0.34867844 \\
+
+
+
+
+
+\section*{Exercise 1.4: (Bayesian Probabilities)} 
+\textbf{Smuggler case.}
+
+Probability network: \\
+\noindent
+\includegraphics[width=8.1cm]{prob.png} \\ \\
+
+Complete the missing probabilities and draw the probability network: \\ 
+P(smuggler) = 0.01 \qquad	/given \\
+P($\overline{smuggler}$) = 0.99 \qquad	/calculated: 1 - 0.01 \\
+\\
+%P(smuggler $|$ police control) = 0.01 \qquad	/given \\
+%P($\overline{smuggler}$ $|$ police control) = 0.99 \qquad	/calculated: 1 - 0.01 \\
+\\
+P(dog barking $|$ smuggler) = 0.8 \qquad	/given \\
+P($\overline{dog barking}$ $|$ smuggler) = 0.2 \qquad	/calculated: 1 - 0.8 \\
+P(dog barking $|$ $\overline{smuggler}$) = 0.05 \qquad	/given \\
+P($\overline{dog barking}$ $|$ $\overline{smuggler}$) = 0.95 \qquad	/calculated: 1 - 0.05 \\
+P(dog barking) = 0.85 \qquad /calculated: 0.8 + 0.05 \\
+P($\overline{dog barking}$) = 0.15 \qquad /calculated: 1 - 0.85 \\
+%P(smuggler $|$ dog barking) = 0.8 \qquad	/given \\
+%P(smuggler $|$ $\overline{dog barking}$) \qquad	/no formula \\
+%P($\overline{smuggler}$ $|$ dog barking) = 0.05 \qquad	/given \\
+%P(smuggler $|$ dog barking) = 0.95 \qquad /calculated: 1 - 0.05 \\
+\\
+P(sweat $|$ $\overline{smuggler}$, $\overline{fever}$) = 0 \qquad	/given\\
+P(sweat $|$ smuggler, $\overline{fever}$) = 0.4 \qquad	/given\\
+P(sweat $|$ smuggler, fever) = 0.8 \qquad	/given\\
+P(sweat $|$ $\overline{smuggler}$, fever) = 0.6 \qquad	/given\\
+\\
+P(fever) = 0.013 \qquad	/given \\
+P($\overline{fever}$) = 0.987 \qquad /calculated: 1 - 0.013 \\
+\\
+Give an example of "explaining away" in the given network: \\
+A status will get more likely or less likely dependent from other conditions. Example: If somebody sweats, we have 2 explanations: fever and smuggler. If we also add the clue dog barking, then the explanation smuggler will get more likely then fever. \\
+\\
+Probability that a person is a smuggler given the observation that the drug
+dog is barking: \\
+P(smuggler $|$ dog barking) = (P(dog barking $|$ smuggler) $\cdot$ P(smuggler)) / P(dog barking) = (P(dog barking $|$ smuggler) $\cdot$ P(smuggler)) / (P(dog barking $|$ smuggler) $\cdot$ P(smuggler) + P(dog barking $|$ $\overline{smuggler}$) $\cdot$ P($\overline{smuggler}$)) = (0.008 / 0.0575) = 0.14  \qquad /calculated with Bayes Law \\
+\\
+Probability that a suspect is sweating (without any prior observation): \\
+P(sweat) = \\ P(sweat $|$ $\overline{smuggler}$, $\overline{fever}$) $\cdot$ P($\overline{smuggler}$, $\overline{fever}$) + \\ P(sweat $|$ smuggler, $\overline{fever}$) $\cdot$ P(smuggler, $\overline{fever}$) + \\ P(sweat $|$ smuggler, fever) $\cdot$ P(smuggler, fever) + \\P(sweat $|$ $\overline{smuggler}$, fever) $\cdot$ P($\overline{smuggler}$, fever) = \\ (0 $\cdot$ (0.99 $\cdot$ 0.987)) + (0.4 $\cdot$ (0.01 $\cdot$ 0.987)) + (0.8 $\cdot$ (0.01 $\cdot$ 0.013)) + (0.6 $\cdot$ (0.99 $\cdot$ 0.013)) = 0 + 0.003948 + 0.000104 + 0.007722 = 0.011774 \qquad /calculated with Law of Total Probability\\
+\\
+Probability that a person is a smuggler given both the observations that
+that person is sweating and that the drug dog barked at him or her: \\
+P(smuggler $|$ sweat, dog barking) = \\
+ P(smuggler $|$ $\overline{sweat}$, $\overline{dog barking}$) $\cdot$ P($\overline{sweat}$, $\overline{dog barking}$) + \\ P(smuggler $|$ sweat, $\overline{dog barking}$) $\cdot$ P(sweat, $\overline{dog barking}$) + \\ P(smuggler $|$ sweat, dog barking) $\cdot$ P(sweat, dog barking) + \\P(smuggler $|$ $\overline{sweat}$, dog barking) $\cdot$ P($\overline{sweat}$, dog barking) = \\ 
+... \\
+
+
+\end{document}
